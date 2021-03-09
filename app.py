@@ -4,7 +4,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import sympy as sp
 import plotly.graph_objects as go
-import math
+#import math
 
 ########### Define your variables
 n, th, v, t, xi, xji, pi, pj, pk = sp.symbols("n theta v t x_i x_{ji} p_i p_j p_k")
