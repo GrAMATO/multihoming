@@ -13,6 +13,19 @@ def position_indif(utilite_multihomer, m):
     pos_xji, = sp.solve(equation, xji)
     return pos_xji.subs(xi, m/n)
 
+def PointsInCircum_x(r, n):
+    return [math.cos(2*math.pi/n*x)*r for x in range(0,n+1)] 
+
+def PointsInCircum_y(r, n):
+    return [math.sin(2*math.pi/n*x)*r for x in range(0,n+1)] 
+
+def PointsInCircum_x2(r, list_pos):
+    return [math.cos(pos*360*math.pi/180)*r for pos in list_pos]
+
+def PointsInCircum_y2(r, list_pos):
+    return [math.sin(pos*360*math.pi/180)*r for pos in list_pos]
+
+
 def position_indif_sym(pos_xji):
     return 1-pos_xji
 
@@ -78,17 +91,7 @@ def build_circle(nb_points, nb):
     fig.update_layout(width=800, height=800)
     return fig
 
-def PointsInCircum_x(r, n):
-    return [math.cos(2*math.pi/n*x)*r for x in range(0,n+1)] 
 
-def PointsInCircum_y(r, n):
-    return [math.sin(2*math.pi/n*x)*r for x in range(0,n+1)] 
-
-def PointsInCircum_x2(r, list_pos):
-    return [math.cos(pos*360*math.pi/180)*r for pos in list_pos]
-
-def PointsInCircum_y2(r, list_pos):
-    return [math.sin(pos*360*math.pi/180)*r for pos in list_pos]
     
     
 def calc_loc_list(prix = 0.9, theta = 0.5):
