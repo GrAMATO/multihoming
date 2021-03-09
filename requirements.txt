@@ -11,5 +11,4 @@ nbformat==4.4.0
 numpy==1.16.4
 pandas==0.24.2
 plotly==4.1.0
-sympy
-math
+sympy==1.7.1
