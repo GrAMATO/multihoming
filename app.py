@@ -199,13 +199,13 @@ app.layout = html.Div(
 
 @app.callback(
     dash.dependencies.Output('value_prix', 'children'),
-    [dash.dependencies.Input('prix', 'drag_value')])
+    [dash.dependencies.Input('prix', 'value')])
 def update_output_prix(value):
     return "Prix de tous les biens : {}".format(value)
 
 @app.callback(
     dash.dependencies.Output('value_theta', 'children'),
-    [dash.dependencies.Input('theta', 'drag_value')])
+    [dash.dependencies.Input('theta', 'value')])
 def update_output_theta(value):
     return "Valeur de theta : {}".format(value)
 
