@@ -105,7 +105,7 @@ def calc_loc_list(prix = 0.9, theta = 0.5):
 ########### Initiate the app
 app = dash.Dash(__name__)
 
-
+server = app.server
 
 
 layout = dict(
