@@ -262,7 +262,7 @@ def build_circle(prix, theta):
         
     ))
 
-    fig.update_traces(textposition='outside', textfont_size=18)
+    fig.update_traces(textposition="top left", textfont_size=18)
 
     # Set axes properties
     fig.update_xaxes(range=[-1.25, 1.25], zeroline=False, showgrid = False, visible = False)
