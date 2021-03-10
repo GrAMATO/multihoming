@@ -142,7 +142,7 @@ app.layout = html.Div(
                         dcc.Slider(
                         id='prix',
                         min=0.1,
-                        max=5,
+                        max=50,
                         step=0.01,
                         value=0.9
                             ),
