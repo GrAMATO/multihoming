@@ -52,43 +52,80 @@ def add_to_list(loc_list, pos_conso):
         loc_list.append(i) 
     return loc_list
 
-def build_circle(nb_points, nb):
 
+def build_liste_positions(nb_points, dict_pos):
+    """Prend en entrée la liste des points. Renvoie une liste de position adaptée à chaque point."""
+    liste_positions = []
+    for i in nb_points:
+        value = verif_value(i - int(i))
+        liste_positions.append(dict_pos[value])
+    return liste_positions
+
+def verif_value(value):
+    """Prend en entrée la position du consommateur indifférent."""
+    all_values = [i/16 for i in range(17)]
+    if value >= 0 :
+        for min_val, max_val in [[all_values[i], all_values[i+1]] for i in range(16)]:
+            if value >= min_val and value < max_val:
+                return min_val
+            elif value == 1:
+                return min_val
+    else:
+        for min_val, max_val in [[-all_values[i], -all_values[i-1]] for i in range(16)]:
+            if value >= min_val and value < max_val:
+                return max_val
+            elif value == -1:
+                return max_val
+            
+dict_pos = {0:"top center", 1/16:"top right", 2/16:"top right", 3/16:"middle right", 4/16:"middle right", 5/16:"bottom right", 6/16:"bottom right", 
+            7/16:"bottom center", 8/16:"bottom center", 9/16:"bottom left", 10/16:"bottom left", 11/16:"middle left", 12/16:"middle left", 13/16:"top left",
+            14/16:"top left", 15/16:"top center", 1:"top center", -1/16:"top left", -2/16:"top left", -3/16:"middle left", -4/16:"middle left", -5/16:"bottom left", 
+            -6/16:"bottom left", -7/16:"bottom center", -8/16:"bottom center", -9/16:"bottom right", -10/16:"bottom right", -11/16:"middle right", -12/16:"middle right", -13/16:"top right",
+            -14/16:"top right", -15/16:"top center", -1:"top center"}            
+
+def build_circle(prix, theta):
+    nb_points = 3
+    nb = calc_loc_list(prix, theta)
+    all_points = [m/nb_points for m in range(0, nb_points)]
     fig = go.Figure()
-
-    # Create scatter trace of text labels
-    fig.add_trace(go.Scatter(
-        x= PointsInCircum_y(1, nb_points),
-        y= PointsInCircum_x(1, nb_points),
-        text = [r"$F_1$", r"$F_2$", r"$F_3$"],
-        mode = 'markers+text',
-
-    ))
-
-    fig.add_trace(go.Scatter(
-        x= PointsInCircum_y2(1, nb),
-        y= PointsInCircum_x2(1, nb),
-        mode = 'markers+text',
-        text = [r"$x_{12}$"+r'<br>'+"-", r"$x_{13}$"],
-        marker_color = "red"
-        
-    ))
-    
-    fig.update_traces(textposition="top left", textfont_size=18)
-
-    # Set axes properties
-    fig.update_xaxes(range=[-1.5, 1.5], zeroline=False, showgrid = False, visible = False)
-    fig.update_yaxes(range=[-1.5, 1.5], zeroline=False, showgrid = False, visible = False)
-
     # Add circles
     fig.add_shape(type="circle",
         xref="x", yref="y",
         x0=-1, y0=-1, x1=1, y1=1,
         line_color="LightSeaGreen",
     )
+    # Create scatter trace of text labels
+    fig.add_trace(go.Scatter(
+        x = PointsInCircum_y(1, nb_points),
+        y = PointsInCircum_x(1, nb_points),
+        text = [r"$F_1$", "F2", "F3"],
+        mode = 'markers+text',
+        textposition=build_liste_positions(all_points, dict_pos)
 
+    ))
+    fig.add_trace(go.Scatter(
+        x= PointsInCircum_y2(1, nb),
+        y= PointsInCircum_x2(1, nb),
+        mode = 'markers+text',
+        text = ["x12", "x13"],
+        textposition = build_liste_positions(nb, dict_pos),
+        marker_color = "red"
+        
+    ))
+    fig.update_traces(textfont_size=18)
+    # Set axes properties
+    fig.update_xaxes(range=[-1.25, 1.25], zeroline=False, showgrid = False, visible = False)
+    fig.update_yaxes(range=[-1.25, 1.25], zeroline=False, showgrid = False, visible = False)
+
+    fig.update_layout(showlegend=False, margin=go.layout.Margin(
+        l=70, #left margin
+        r=0, #right margin
+        b=35, #bottom margin
+        t=35, #top margin
+    ), 
+    
+                     width= 700, height=700)
     # Set figure size
-    fig.update_layout(width=800, height=800)
     return fig
 
 
