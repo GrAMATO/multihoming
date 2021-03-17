@@ -73,7 +73,7 @@ def build_circle(nb_points, nb):
         marker_color = "red"
         
     ))
-    print(nb)
+    
     fig.update_traces(textposition="top left", textfont_size=18)
 
     # Set axes properties
@@ -215,7 +215,8 @@ def update_output_theta(value):
     dash.dependencies.Input('prix', 'value')])
 def update_output_singlehomers(theta, prix):
     pos_xji, pos_xjn = calc_loc_list(prix, theta)
-    return "Singlehomers : {}".format(conso_exclu(pos_xji, pos_xjn))
+    nb = calc_loc_list(prix, theta)
+    return "Singlehomers : {}".format(nb) #conso_exclu(pos_xji, pos_xjn)
 
 @app.callback(
     dash.dependencies.Output('multih', 'children'),
