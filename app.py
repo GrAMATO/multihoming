@@ -83,50 +83,6 @@ dict_pos = {0:"top center", 1/16:"top right", 2/16:"top right", 3/16:"middle rig
             -6/16:"bottom left", -7/16:"bottom center", -8/16:"bottom center", -9/16:"bottom right", -10/16:"bottom right", -11/16:"middle right", -12/16:"middle right", -13/16:"top right",
             -14/16:"top right", -15/16:"top center", -1:"top center"}            
 
-def build_circle(prix, theta):
-    nb_points = 3
-    nb = calc_loc_list(prix, theta)
-    all_points = [m/nb_points for m in range(0, nb_points)]
-    fig = go.Figure()
-    # Add circles
-    fig.add_shape(type="circle",
-        xref="x", yref="y",
-        x0=-1, y0=-1, x1=1, y1=1,
-        line_color="LightSeaGreen",
-    )
-    # Create scatter trace of text labels
-    fig.add_trace(go.Scatter(
-        x = PointsInCircum_y(1, nb_points),
-        y = PointsInCircum_x(1, nb_points),
-        text = [r"$F_1$", "F2", "F3"],
-        mode = 'markers+text',
-        textposition=build_liste_positions(all_points, dict_pos)
-
-    ))
-    fig.add_trace(go.Scatter(
-        x= PointsInCircum_y2(1, nb),
-        y= PointsInCircum_x2(1, nb),
-        mode = 'markers+text',
-        text = ["x12", "x13"],
-        textposition = build_liste_positions(nb, dict_pos),
-        marker_color = "red"
-        
-    ))
-    fig.update_traces(textfont_size=18)
-    # Set axes properties
-    fig.update_xaxes(range=[-1.25, 1.25], zeroline=False, showgrid = False, visible = False)
-    fig.update_yaxes(range=[-1.25, 1.25], zeroline=False, showgrid = False, visible = False)
-
-    fig.update_layout(showlegend=False, margin=go.layout.Margin(
-        l=70, #left margin
-        r=0, #right margin
-        b=35, #bottom margin
-        t=35, #top margin
-    ), 
-    
-                     width= 700, height=700)
-    # Set figure size
-    return fig
 
 
     
@@ -275,6 +231,7 @@ def update_output_multihomers(theta, prix):
 def build_circle(prix, theta):
     nb_points = 3
     nb = calc_loc_list(prix, theta)
+    all_points = [m/nb_points for m in range(0, nb_points)]
     fig = go.Figure()
     # Add circles
     fig.add_shape(type="circle",
@@ -284,24 +241,23 @@ def build_circle(prix, theta):
     )
     # Create scatter trace of text labels
     fig.add_trace(go.Scatter(
-        x= PointsInCircum_y(1, nb_points),
-        y= PointsInCircum_x(1, nb_points),
-        text = ["F1", "F2", "F3"],
+        x = PointsInCircum_y(1, nb_points),
+        y = PointsInCircum_x(1, nb_points),
+        text = [r"$F_1$", "F2", "F3"],
         mode = 'markers+text',
+        textposition=build_liste_positions(all_points, dict_pos)
 
     ))
-
     fig.add_trace(go.Scatter(
         x= PointsInCircum_y2(1, nb),
         y= PointsInCircum_x2(1, nb),
         mode = 'markers+text',
         text = ["x12", "x13"],
+        textposition = build_liste_positions(nb, dict_pos),
         marker_color = "red"
         
     ))
-
-    fig.update_traces(textposition="top left", textfont_size=18)
-
+    fig.update_traces(textfont_size=18)
     # Set axes properties
     fig.update_xaxes(range=[-1.25, 1.25], zeroline=False, showgrid = False, visible = False)
     fig.update_yaxes(range=[-1.25, 1.25], zeroline=False, showgrid = False, visible = False)
@@ -312,10 +268,11 @@ def build_circle(prix, theta):
         b=35, #bottom margin
         t=35, #top margin
     ), 
-    paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+    
                      width= 700, height=700)
     # Set figure size
     return fig
+
 
 
 
