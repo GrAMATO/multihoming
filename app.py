@@ -60,7 +60,7 @@ def build_circle(nb_points, nb):
     fig.add_trace(go.Scatter(
         x= PointsInCircum_y(1, nb_points),
         y= PointsInCircum_x(1, nb_points),
-        text = ["$F_1$", "$F_2$", "$F_3$"],
+        text = [r"$F_1$", r"$F_2$", r"$F_3$"],
         mode = 'markers+text',
 
     ))
@@ -69,11 +69,11 @@ def build_circle(nb_points, nb):
         x= PointsInCircum_y2(1, nb),
         y= PointsInCircum_x2(1, nb),
         mode = 'markers+text',
-        text = ["$x_{12}$"+r'<br>'+"-", "$x_{13}$"],
+        text = [r"$x_{12}$"+r'<br>'+"-", r"$x_{13}$"],
         marker_color = "red"
         
     ))
-
+    print(nb)
     fig.update_traces(textposition="top left", textfont_size=18)
 
     # Set axes properties
