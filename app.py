@@ -200,7 +200,7 @@ def update_output_prix(value):
     dash.dependencies.Output('value_theta', 'children'),
     [dash.dependencies.Input('theta', 'value')])
 def update_output_theta(value):
-    return "valeur du paramètre d'hétérogénéité des consommateurs (𝜃) : {}".format(value)
+    return "Valeur du paramètre d'hétérogénéité des consommateurs (𝜃) : {}".format(value)
 
 @app.callback(
     dash.dependencies.Output('singleh', 'children'),
@@ -209,7 +209,7 @@ def update_output_theta(value):
 def update_output_singlehomers(theta, prix):
     pos_xji, pos_xjn = calc_loc_list(prix, theta)
     nb = calc_loc_list(prix, theta)
-    return "Singlehomers : {}".format(nb) #conso_exclu(pos_xji, pos_xjn)
+    return "Singlehomers : {}".format(conso_exclu(pos_xji, pos_xjn)) #nb
 
 @app.callback(
     dash.dependencies.Output('multih', 'children'),
