@@ -200,7 +200,7 @@ def update_output_prix(value):
     dash.dependencies.Output('value_theta', 'children'),
     [dash.dependencies.Input('theta', 'value')])
 def update_output_theta(value):
-    return "Valeur de theta : {}".format(value)
+    return "valeur du paramètre d'hétérogénéité des consommateurs (𝜃) : {}".format(value)
 
 @app.callback(
     dash.dependencies.Output('singleh', 'children'),
