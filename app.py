@@ -243,7 +243,7 @@ def build_circle(prix, theta):
     fig.add_trace(go.Scatter(
         x = PointsInCircum_y(1, nb_points),
         y = PointsInCircum_x(1, nb_points),
-        text = [r"$F_1$", "F2", "F3"],
+        text = ["F1", "F2", "F3"],
         mode = 'markers+text',
         textposition=build_liste_positions(all_points, dict_pos)
 
@@ -254,6 +254,15 @@ def build_circle(prix, theta):
         mode = 'markers+text',
         text = ["x12", "x13"],
         textposition = build_liste_positions(nb, dict_pos),
+        marker_color = "red"
+        
+    ))
+    fig.add_trace(go.Scatter(
+        x= PointsInCircum_y2(1, nb2),
+        y= PointsInCircum_x2(1, nb2),
+        mode = 'markers+text',
+        text = ["x21", "x31"],
+        textposition = build_liste_positions(nb2, dict_pos),
         marker_color = "red"
         
     ))
