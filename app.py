@@ -87,10 +87,10 @@ dict_pos = {0:"top center", 1/16:"top right", 2/16:"top right", 3/16:"middle rig
 
     
     
-def calc_loc_list(prix = 0.9, theta = 0.5):
+def calc_loc_list(prix = 0.9, theta = 0.5, m = 1):
     loc_list = []
     utilite_multihomer = th*(v-t*(xi - xji))-pi
-    pos_conso = calcul_pos_conso(utilite_multihomer, pi_val = prix, t_val = 1, th_val = theta, n_val = 3, m_val = 1, v_val = 2)
+    pos_conso = calcul_pos_conso(utilite_multihomer, pi_val = prix, t_val = 1, th_val = theta, n_val = 3, m_val = m, v_val = 2)
     loc_list = add_to_list(loc_list, pos_conso)
     return loc_list
 
@@ -230,7 +230,8 @@ def update_output_multihomers(theta, prix):
 
 def build_circle(prix, theta):
     nb_points = 3
-    nb = calc_loc_list(prix, theta)
+    nb = calc_loc_list(prix, theta, 1)
+    nb2 = calc_loc_list(prix, theta, 0)
     all_points = [m/nb_points for m in range(0, nb_points)]
     fig = go.Figure()
     # Add circles
