@@ -94,26 +94,16 @@ def calc_loc_list(prix = 0.9, theta = 0.5, m = 1):
     loc_list = add_to_list(loc_list, pos_conso)
     return loc_list
 
-def pos_conso_same_side(nb, nb2, pos):
-    """Prends en entrée nb, nb2 les listes des deux position, récupère dans chaque liste l'élément situé à la position indiquée par pos afin
-    de construire une nouvelle liste comprenant les deux consommateurs indifférents situés du même côté du cercle."""
-    pos_conso1 = nb[pos]
-    pos_conso2 = nb2[pos]
-    return [pos_conso1, pos_conso2]
 
 
 def contraintes_conso_indif(nb, nb2, pos_entr, pos_entr2, pos_entr3):
     """Prend en entrée nb et nb2, les listes des positions des consommateurs indifférents, pos_entr la position de l'entreprise préférée """
-    list_new_pos = []
-    for i in range(2):
-        pos_conso1, pos_conso2 = pos_conso_same_side(nb, nb2, i)
-        if i !=0:
-            pos_entr_tempo = pos_entr3
-        else:
-            pos_entr_tempo = pos_entr2
-        list_new_pos.append([contraintes_conso(pos_conso1, pos_conso2, pos_entr), contraintes_conso_sym(pos_conso2, pos_conso1, pos_entr_tempo)])
-    nb_clean, nb2_clean = list_new_pos
-    return [nb_clean[0], nb2_clean[1]], [nb_clean[1], nb2_clean[0]]
+    x12, x13 = nb
+    x21, x31 = nb2
+
+    x12, x21 = [contraintes_conso(x12, x21, pos_entr), contraintes_conso_sym(x21, x12, pos_entr2)]
+    x13, x31 = [contraintes_conso(x13, x31, pos_entr), contraintes_conso_sym(x31, x13, pos_entr3)]
+    return [x12, x13], [x21, x31]
 
 def contraintes_conso(pos_conso1, pos_conso2, pos_entr):
     """Vérifie si les contraintes sont respectées"""
