@@ -102,15 +102,16 @@ def pos_conso_same_side(nb, nb2, pos):
     return [pos_conso1, pos_conso2]
 
 
-def contraintes_conso_indif(nb, nb2, pos_entr, pos_entr2):
+def contraintes_conso_indif(nb, nb2, pos_entr, pos_entr2, pos_entr3):
     """Prend en entrée nb et nb2, les listes des positions des consommateurs indifférents, pos_entr la position de l'entreprise préférée """
     list_new_pos = []
     for i in range(2):
         pos_conso1, pos_conso2 = pos_conso_same_side(nb, nb2, i)
-        print(pos_conso1)
-        print(pos_conso2)
-        print(list_new_pos)
-        list_new_pos.append([contraintes_conso(pos_conso1, pos_conso2, pos_entr), contraintes_conso_sym(pos_conso2, pos_conso1, pos_entr2)])
+        if i !=0:
+            pos_entr_tempo = pos_entr3
+        else:
+            pos_entr_tempo = pos_entr2
+        list_new_pos.append([contraintes_conso(pos_conso1, pos_conso2, pos_entr), contraintes_conso_sym(pos_conso2, pos_conso1, pos_entr_tempo)])
     return list_new_pos
 
 def contraintes_conso(pos_conso1, pos_conso2, pos_entr):
@@ -271,7 +272,7 @@ def build_circle(prix, theta):
     nb = calc_loc_list(prix, theta, 1)
     nb2 = calc_loc_list(prix, theta, 0)
     all_points = [m/nb_points for m in range(0, nb_points)]
-    nb2, nb = contraintes_conso_indif(nb, nb2, 0, 1/nb_points)
+    nb2, nb = contraintes_conso_indif(nb, nb2, 0, 1/nb_points, 2/nb_points)
     fig = go.Figure()
     # Add circles
     fig.add_shape(type="circle",
