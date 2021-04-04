@@ -101,27 +101,32 @@ def contraintes_conso_indif(nb, nb2, pos_entr, pos_entr2, pos_entr3):
     x12, x13 = nb
     x21, x31 = nb2
 
-    x12, x21 = [contraintes_conso(x12, x21, pos_entr), contraintes_conso_sym(x21, x12, pos_entr2)]
-    x13, x31 = [contraintes_conso(x13, x31, pos_entr), contraintes_conso_sym(x31, x13, pos_entr3)]
+    x12, x21 = [contraintes_conso(x12, x21, pos_entr, pos_entr2), contraintes_conso_sym(x21, x12, pos_entr2, pos_entr)]
+    x13, x31 = [contraintes_conso(x13, x31, pos_entr, pos_entr3), contraintes_conso_sym(x31, x13, pos_entr3, pos_entr)]
     return [x12, x13], [x21, x31]
 
-def contraintes_conso(pos_conso1, pos_conso2, pos_entr):
+def contraintes_conso(pos_conso1, pos_conso2, pos_entr, pos_entr2):
     """Vérifie si les contraintes sont respectées"""
     if pos_conso1 < pos_entr:
         return pos_entr
-    elif pos_conso1 > pos_conso2:
+    elif pos_conso1 > pos_conso2 and pos_conso2>pos_entr2:
+        return pos_entr2
+    elif pos_conso1 > pos_conso2 and pos_conso2<pos_entr2:
         return pos_conso2
     else:     
         return pos_conso1
     
-def contraintes_conso_sym(pos_conso1, pos_conso2, pos_entr):
-    """Vérifie si les contraintes sont respectées"""
+def contraintes_conso_sym(pos_conso1, pos_conso2, pos_entr, pos_entr2):
+    """Vérifie si les contraintes sont respectées (symétrique)"""
     if pos_conso1 > pos_entr:
         return pos_entr
-    elif pos_conso1 < pos_conso2:
+    elif pos_conso1 < pos_conso2 and pos_conso2<pos_entr2:
+        return pos_entr2
+    elif pos_conso1 < pos_conso2 and pos_conso2>pos_entr2:
         return pos_conso2
     else:     
         return pos_conso1
+
 
 
 
