@@ -268,10 +268,10 @@ def update_output_multihomers(theta, prix):
 
 def build_circle(prix, theta):
     nb_points = 3
-    nb = calc_loc_list(prix, theta, 0)
-    nb2 = calc_loc_list(prix, theta, 1)
+    nb = calc_loc_list(prix, theta, 1)
+    nb2 = calc_loc_list(prix, theta, 0)
     all_points = [m/nb_points for m in range(0, nb_points)]
-    nb, nb2 = contraintes_conso_indif(nb, nb2, 0, 1/nb_points)
+    nb2, nb = contraintes_conso_indif(nb, nb2, 0, 1/nb_points)
     fig = go.Figure()
     # Add circles
     fig.add_shape(type="circle",
