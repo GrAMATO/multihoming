@@ -94,6 +94,44 @@ def calc_loc_list(prix = 0.9, theta = 0.5, m = 1):
     loc_list = add_to_list(loc_list, pos_conso)
     return loc_list
 
+def pos_conso_same_side(nb, nb2, pos):
+    """Prends en entrée nb, nb2 les listes des deux position, récupère dans chaque liste l'élément situé à la position indiquée par pos afin
+    de construire une nouvelle liste comprenant les deux consommateurs indifférents situés du même côté du cercle."""
+    pos_conso1 = nb[pos]
+    pos_conso2 = nb2[pos]
+    return [pos_conso1, pos_conso2]
+
+
+def contraintes_conso_indif(nb, nb2, pos_entr, pos_entr2):
+    """Prend en entrée nb et nb2, les listes des positions des consommateurs indifférents, pos_entr la position de l'entreprise préférée """
+    list_new_pos = []
+    for i in range(2):
+        pos_conso1, pos_conso2 = pos_conso_same_side(nb, nb2, i)
+        print(pos_conso1)
+        print(pos_conso2)
+        print(list_new_pos)
+        list_new_pos.append([contraintes_conso(pos_conso1, pos_conso2, pos_entr), contraintes_conso_sym(pos_conso2, pos_conso1, pos_entr2)])
+    return list_new_pos
+
+def contraintes_conso(pos_conso1, pos_conso2, pos_entr):
+    """Vérifie si les contraintes sont respectées"""
+    if pos_conso1 < pos_entr:
+        return pos_entr
+    elif pos_conso1 > pos_conso2:
+        return pos_conso2
+    else:     
+        return pos_conso1
+    
+def contraintes_conso_sym(pos_conso1, pos_conso2, pos_entr):
+    """Vérifie si les contraintes sont respectées"""
+    if pos_conso1 > pos_entr:
+        return pos_entr
+    elif pos_conso1 < pos_conso2:
+        return pos_conso2
+    else:     
+        return pos_conso1
+
+
 
 ########### Initiate the app
 app = dash.Dash(__name__)
@@ -230,9 +268,10 @@ def update_output_multihomers(theta, prix):
 
 def build_circle(prix, theta):
     nb_points = 3
-    nb = calc_loc_list(prix, theta, 1)
-    nb2 = calc_loc_list(prix, theta, 0)
+    nb = calc_loc_list(prix, theta, 0)
+    nb2 = calc_loc_list(prix, theta, 1)
     all_points = [m/nb_points for m in range(0, nb_points)]
+    nb, nb2 = contraintes_conso_indif(nb, nb2, 0, 1/nb_points)
     fig = go.Figure()
     # Add circles
     fig.add_shape(type="circle",
