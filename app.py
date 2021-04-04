@@ -272,7 +272,7 @@ def build_circle(prix, theta):
     nb = calc_loc_list(prix, theta, 1)
     nb2 = calc_loc_list(prix, theta, 0)
     all_points = [m/nb_points for m in range(0, nb_points)]
-    nb2, nb = contraintes_conso_indif(nb, nb2, 0, 1/nb_points, 2/nb_points)
+    nb2, nb = contraintes_conso_indif(nb, nb2, 0, 2/3, 1/3)
     fig = go.Figure()
     # Add circles
     fig.add_shape(type="circle",
