@@ -112,7 +112,8 @@ def contraintes_conso_indif(nb, nb2, pos_entr, pos_entr2, pos_entr3):
         else:
             pos_entr_tempo = pos_entr2
         list_new_pos.append([contraintes_conso(pos_conso1, pos_conso2, pos_entr), contraintes_conso_sym(pos_conso2, pos_conso1, pos_entr_tempo)])
-    return list_new_pos
+    nb_clean, nb2_clean = list_new_pos
+    return pos_conso_same_side(nb_clean, nb2_clean, 0), pos_conso_same_side(nb_clean, nb2_clean, 1)
 
 def contraintes_conso(pos_conso1, pos_conso2, pos_entr):
     """Vérifie si les contraintes sont respectées"""
